@@ -15,20 +15,21 @@ public class UDPClient {
 	
 	byte[] sendData = new byte[1024]; 
 	byte[] receiveData = new byte[1024]; 
+	while(true) {
+		String sentence = inFromUser.readLine(); 
+		sendData = sentence.getBytes();         
+		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876); 
 	
-	String sentence = inFromUser.readLine(); 
-	sendData = sentence.getBytes();         
-	DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876); 
+		clientSocket.send(sendPacket); 
 	
-	clientSocket.send(sendPacket); 
+		DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length); 
 	
-	DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length); 
+		clientSocket.receive(receivePacket); 
 	
-	clientSocket.receive(receivePacket); 
+		String modifiedSentence = new String(receivePacket.getData()); 
 	
-	String modifiedSentence = new String(receivePacket.getData()); 
-	
-	System.out.println("FROM SERVER:" + modifiedSentence); 
-	clientSocket.close(); 
+		System.out.println(modifiedSentence); 
+	//clientSocket.close(); 
     } 
+	}	
 }

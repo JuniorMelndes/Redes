@@ -11,11 +11,13 @@ public class UDPServer {
 	float arg2;
 	float capitalizedSentenceTemp = 0;
 	String capitalizedSentence;
+	String confirmacao = "Recebido!" + "\n";
 	
 	DatagramSocket serverSocket = new DatagramSocket(9876); 
 	
 	byte[] receiveData = new byte[1024]; 
 	byte[] sendData  = new byte[1024]; 
+	byte[] sla = new byte[1024];
 	
 	while(true) { 
 		
@@ -27,6 +29,13 @@ public class UDPServer {
 		
 		int port = receivePacket.getPort(); 
 		
+		if (!(receivePacket.equals(null))) {
+			sla = confirmacao.getBytes();
+			DatagramPacket sendPacket1 = new DatagramPacket(sla, sla.length, IPAddress, port);
+			serverSocket.send(sendPacket1);
+		}
+		
+		//Aplicação
 	    argumentos = sentence.split(" ");
 	    arg0 = argumentos[0];
 	    arg1 = Float.parseFloat(argumentos[1]);
@@ -49,6 +58,7 @@ public class UDPServer {
 		}
 	    
 		capitalizedSentence = Float.toString(capitalizedSentenceTemp) + "\n";
+		//Aplicação
 		
 		sendData = capitalizedSentence.getBytes(); 
 		
