@@ -6,8 +6,8 @@ import java.time.Duration;
 
 public class UDPClient {
 	private static final String ACK = "ACK";
-	private static final int TIMEOUT = 2;
-	private static final int PORT = 9876;
+	private static final int TIMEOUT = 3;
+	private static final int PORT = 9999;
 	private static final int BYTES = 2014;
 	private static final String IP = "localhost"; 
 	

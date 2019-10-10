@@ -7,7 +7,7 @@ public class UDPServer {
 	
 	private static final String ACK = "ACK";
 	private static DatagramSocket serverSocket; ;
-	private static final int PORT = 9879;
+	private static final int PORT = 9999;
 	private static final int BYTES = 2014;
 	private static final int TIMEOUT = 3;
 	
@@ -17,7 +17,6 @@ public class UDPServer {
 		float arg1;
 		float arg2;
 		
-		DatagramSocket serverSocket = new DatagramSocket(9876); 
 		
 		byte[] receiveData = new byte[BYTES]; 
 		byte[] sendData = new byte[BYTES]; 
@@ -27,10 +26,9 @@ public class UDPServer {
 			
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length); 
 			serverSocket.receive(receivePacket); 
+			InetAddress IPAddress = receivePacket.getAddress(); 
 			
 			String sentence = new String(receivePacket.getData()); 
-			
-			InetAddress IPAddress = receivePacket.getAddress(); 
 			
 			int port = receivePacket.getPort(); 
 			
@@ -39,7 +37,6 @@ public class UDPServer {
 			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);			
 			serverSocket.send(sendPacket); 
 			
-			//Aplicação
 		    argumentos = sentence.split(" ");
 		    arg0 = argumentos[0];
 		    arg1 = Float.parseFloat(argumentos[1]);
